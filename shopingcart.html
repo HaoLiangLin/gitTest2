@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        tr{
+            height: 30px;
+        }
+        tr,th,td{
+            width: 90px;
+            border: 1px solid #000;
+        }
+        .lineColor1{
+            background-color: orange;
+        }
+        .lineColor2{
+            background-color: paleturquoise;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>商品数量</th>
+                    <th>最终金额</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(good,index) in shoppingcart" :key="good.id" style="text-align: center;" :class="[class1(index)]">
+                    <td>{{good.id}}</td>
+                    <td>{{good.name}}</td>
+                    <td>{{good.price}}</td>
+                    <td>
+                        <button :disabled="good.quantity == 1" @click="good.quantity--">-</button>
+                        <input type="text" v-model="good.quantity" style="width: 24px;text-align: center;">
+                        <button @click="good.quantity++">+</button>
+                    </td>
+                    <td>{{good.price * good.quantity}}</td>
+                    <td>
+                        <button @click="del(index)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>共计： {{price}}</h3>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                shoppingcart: [
+                    {
+                        id: 1,
+                        name: '洗发水',
+                        price: 20,
+                        quantity: 1,
+                    },
+                    {
+                        id: 2,
+                        name: '沐浴露',
+                        price: 32,
+                        quantity: 1,
+                    },
+                    {
+                        id: 3,
+                        name: '护发素',
+                        price: 50,
+                        quantity: 1,
+                    },
+                    {
+                        id: 4,
+                        name: '护肤霜',
+                        price: 35,
+                        quantity: 1,
+                    },
+                    {
+                        id: 5,
+                        name: '毛巾',
+                        price: 5,
+                        quantity: 1,
+                    },
+                ],
+                class: ['lineColor1','lineColor2']
+            },
+            methods: {
+                del(val) {
+                    this.shoppingcart.splice(val,1)
+                },
+                class1(val) {
+                    let index = val + 1
+                    if(index % 2 == 0){
+                        return this.class[1]
+                    }
+                    return this.class[0]
+                }
+            },
+            computed: {
+                price() {
+                    let price = 0
+                    this.shoppingcart.forEach(item => {
+                        price += item.price * item.quantity
+                    });
+                    return price
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>

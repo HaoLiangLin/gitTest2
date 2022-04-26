@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <form action="#">
+                <h4>文本框</h4>
+                <input type="text" v-model="text">
+                <p>您填写的名字是：<span v-if="text">{{text}}</span></p>
+                <hr>
+
+                <h4>复选框</h4>
+                <input type="checkbox" name="hobby" id="eml1" value="篮球" v-model="hobby">
+                <label for="eml1">篮球</label>
+                <input type="checkbox" name="hobby" id="eml2" value="足球" v-model="hobby">
+                <label for="eml2">足球</label>
+                <input type="checkbox" name="hobby" id="eml3" value="排球" v-model="hobby">
+                <label for="eml3">排球</label>
+                <input type="checkbox" name="hobby" id="eml4" value="羽毛球" v-model="hobby">
+                <label for="eml4">羽毛球</label>
+                <input type="checkbox" name="hobby" id="eml5" value="乒乓球" v-model="hobby">
+                <label for="eml5">乒乓球</label>
+                <input type="checkbox" name="hobby" id="eml6" value="棒球" v-model="hobby">
+                <label for="eml6">棒球</label>
+                <p>您选择的球类是：<span v-if="hobby.length > 0">{{myHobby}}</span></p>
+                <hr>
+
+                <h4>单选框</h4>
+                <input type="radio" name="gender" id="gender1" value="男" v-model="gender">
+                <label for="gender1">男</label>
+                <input type="radio" name="gender" id="gender2" value="女" v-model="gender">
+                <label for="gender2">女</label>
+                <p>你选择的性别是：<span v-if="gender">{{gender}}</span></p>
+                <hr>
+
+                <h4>单项选择框</h4>
+                <select name="address" id="" v-model="select">
+                    <option value="请选择你的国籍" disabled>请选择你的国籍</option>
+                    <option v-for="(item,index) in address" :key="index" :value="item">{{item}}</option>
+                </select>
+                <p>您选择的国籍是：<span v-if="select">{{select}}</span></p>
+            </form>
+        </table>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                text: '',
+                hobby: [],
+                gender: '',
+                address: ['中国','美国','英国','法国','俄罗斯'],
+                select: ''
+            },
+            computed: {
+                myHobby() {
+                    let hobby = ''
+                    this.hobby.forEach(item => {
+                        hobby += item+' '
+                    });
+                    return hobby
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>

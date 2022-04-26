@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .box{
+            height: 100px;
+            width: 100px;
+            border: 1px solid #000;
+        }
+        .oneColor{
+            background-color: red;
+        }
+        .twoColor{
+            background-color: orange;
+        }
+        .threeColor{
+            background-color: pink;
+        }
+        .fourColor{
+            background-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" :class="[class1[number]]"></div>
+        <button :disabled="number == 0" @click="number--">-</button>
+        <input type="text" v-model.number="number" style="width: 30px;text-align: center;">
+        <button @click="number++" :disabled="number >= class1.length-1">+</button>
+
+        <div :style="[style,style1]">style属性绑定</div>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                class1: ['oneColor', 'twoColor','threeColor','fourColor'],
+                number: 0,
+                style: {
+                    color: 'red',
+                    fontSize: '32px'
+                },
+                style1: {
+                    border: '1px solid pink',
+                    width: '200px'
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>

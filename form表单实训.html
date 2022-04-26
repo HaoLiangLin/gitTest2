@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>信息调查表</h3>
+        <table>
+            <form action="#">
+                <tr>
+                    <td>
+                        姓名: <input type="text" name="" id="" v-model="name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        你的名字: {{name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        意见和建议:{{text}}<br>
+                        <textarea name="" id="" cols="30" rows="2" v-model="text" placeholder="请输入你的建议和意见"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        选择你的兴趣爱好:{{myHobby}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="hobby" id="h1" value="音乐" v-model="hobby">
+                        <label for="h1">音乐</label>
+                        <input type="checkbox" name="hobby" id="h2" value="下棋" v-model="hobby">
+                        <label for="h2">下棋</label>
+                        <input type="checkbox" name="hobby" id="h3" value="网游" v-model="hobby">
+                        <label for="h3">网游</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        你的性别：{{gender}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="gender" id="g1" value="男" v-model="gender">
+                        <label for="g1">男</label>
+                        <input type="radio" name="gender" id="g2" value="女" v-model="gender">
+                        <label for="g2">女</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        你的选择是：{{myMajor}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select multiple v-model="major" style="width: 180px;">
+                            <option v-for="(item,index) in majors" :key="index" :value="item">{{item}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        你的国籍是: {{select}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="address" id="" v-model="select">
+                            <option value="请选择你的国籍" disabled>请选择你的国籍</option>
+                            <option v-for="(item,index) in address" :key="index" :value="item">{{item}}</option>
+                        </select>
+                    </td>
+                </tr>
+            </form>
+        </table>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                name: '',
+                text: '',
+                hobby: [],
+                gender: '',
+                major: [],
+                majors: ['java面向对象', 'HTML+CSS网页设计', 'JavaScript', 'Vue', 'JavaEE', 'PHP'],
+                address: ['中国','美国','英国','法国','俄罗斯'],
+                select: ''
+            },
+            computed: {
+                myHobby() {
+                    let hobby = ''
+                    this.hobby.forEach(item => {
+                        hobby += item+' '
+                    });
+                    return hobby
+                },
+                myMajor() {
+                    let major = ''
+                    this.major.forEach(item => {
+                        major += item+' '
+                    });
+                    return major
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>

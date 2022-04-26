@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        米<input type="text" v-model="val">
+        厘米<input type="text" :value="val | mval">
+        <hr>
+        请输入你的年龄:<input type="text" v-model.number="person.age">
+        <p>{{checkName}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                val: 1,
+                person: {
+                    age: 0,
+                },
+                checkName: ''
+            },
+            watch: {
+                val(newVal, oldVal) {
+                    console.log(newVal,oldVal)
+                },
+                // person: {
+                //     handler(newAge) {
+                //         if (this.person.age >= 18) {
+                //             this.checkName = '已成年'
+                //             return
+                //         }
+                //         if (this.person.age <= 0){
+                //             this.checkName = ''
+                //             return
+                //         }
+                //         this.checkName = '未成年'
+                //     },
+                //     immediate: true,
+                //     deep: true
+                // },
+                'person.age'(newAge) {
+                    if (this.person.age >= 18) {
+                        this.checkName = '已成年'
+                        return
+                    }
+                    if (this.person.age <= 0){
+                        this.checkName = ''
+                        return
+                    }
+                    this.checkName = '未成年'
+                }
+            },
+            filters: {
+                mval(val) {
+                    return val*100
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+</html>
