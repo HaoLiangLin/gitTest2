@@ -8,10 +8,37 @@
     <script src="./vue.js"></script>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        请输入你的年龄:<input type="text" v-model="age" @keyup.enter="inputClick">
+        <p>{{checkName}}</p>
+    </div>
 
-    <script src="./vue.js">
-        new Vue({}).$mount('#app')
+    <script>
+        new Vue({
+            data: {
+                age: 0,
+                checkName: ''
+            },
+            methods: {
+                inputClick(e) {
+                    console.log(e.target.value)
+                    e.target.value = `${this.checkName}`
+                }
+            },
+            watch: {
+                age(newVal) {
+                    if( this.age >= 18 ){
+                        this.checkName = '已成年'
+                        return
+                    }
+                    if (this.age <= 0) {
+                        this.checkName = ''
+                        return
+                    }
+                    this.checkName = '未成年'
+                }
+            }
+        }).$mount('#app')
     </script>
 </body>
 </html>
