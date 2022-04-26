@@ -11,6 +11,17 @@
     <div id="app">
         请输入你的年龄:<input type="text" v-model="age" @keyup.enter="inputClick">
         <p>{{checkName}}</p>
+        <hr>
+        <a href="http://www.baidu.com" @click.prevent = "aClick">阻止默认行为</a>
+        <a href="http://www.baidu.com" >不阻止默认行为</a>
+        <hr>
+        <div @click.capture="divClick">
+            <button @click="btnClick">事件捕捉</button>
+        </div>
+        <hr>
+        <div @click="divClick" style="width: 100px;height: 100px;border: 1px solid #000;">
+            <button @click.stop="btnClick">事件捕捉</button>
+        </div>
     </div>
 
     <script>
@@ -23,6 +34,18 @@
                 inputClick(e) {
                     console.log(e.target.value)
                     e.target.value = `${this.checkName}`
+                },
+                aClick() {
+                    console.log('阻止默认行为')
+                },
+                aClick1() {
+                    console.log('不阻止默认行为')
+                },
+                divClick() {
+                    console.log('我是父元素的单击事件')
+                },
+                btnClick() {
+                    console.log('我是当前元素的单击事件')
                 }
             },
             watch: {
